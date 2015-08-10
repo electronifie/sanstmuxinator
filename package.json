@@ -1,0 +1,19 @@
+{
+  "name": "sanstmuxinator",
+  "version": "0.0.1",
+  "description": "Run tmuxinator configs without tmuxinator or tmux.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "andrew.mckenzie@electronifie.com",
+  "bin": "bin/sanstmuxinator",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.4.2",
+    "lodash": "^3.10.1",
+    "minimist": "^1.1.3",
+    "ps-tree": "^1.0.0",
+    "read-yaml": "^1.0.0"
+  }
+}

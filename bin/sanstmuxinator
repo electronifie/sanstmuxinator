@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+var argv = require('minimist')(process.argv.slice(2));
+var fs = require('fs');
+var path = require('path');
+var sanstmuxinator = require('../index');
+
+var configPath = argv.config;
+if (!configPath) {
+  console.error('Missing --config PATH_TO_TMUXINATOR_CONFIG');
+  process.exit(1);
+}
+
+var logBaseDir = argv.logDir || ('/tmp/sanstmuxinator/' + Date.now());
+
+var absConfigPath = path.resolve(process.cwd(), configPath);
+
+if (!fs.lstatSync(absConfigPath).isFile()) {
+  console.error('Could not find ' + absConfigPath);
+  process.exit(1);
+}
+
+var cwd = argv.cwd || path.dirname(absConfigPath);
+
+
+sanstmuxinator.run(absConfigPath, logBaseDir, cwd);
