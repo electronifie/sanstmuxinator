@@ -10,8 +10,6 @@ if (!configPath) {
   process.exit(1);
 }
 
-var logBaseDir = argv.logDir || ('/tmp/sanstmuxinator/' + Date.now());
-
 var absConfigPath = path.resolve(process.cwd(), configPath);
 
 if (!fs.lstatSync(absConfigPath).isFile()) {
@@ -19,7 +17,11 @@ if (!fs.lstatSync(absConfigPath).isFile()) {
   process.exit(1);
 }
 
-var cwd = argv.cwd || path.dirname(absConfigPath);
+var options = {
+  cwd: argv.cwd || path.dirname(absConfigPath),
+  configPath: absConfigPath,
+  logBaseDir: argv.logDir || ('/tmp/sanstmuxinator/' + Date.now()),
+  noLogDirs: argv.noLogDirs === 'true'
+};
 
-
-sanstmuxinator.run(absConfigPath, logBaseDir, cwd);
+sanstmuxinator.run(options);

@@ -22,9 +22,13 @@ process.on('SIGINT', exitHandler);
 process.on('uncaughtException', exitHandler);
 
 module.exports = {
-  run: function (absConfigPath, logBaseDir, cwd) {
+  run: function (options) {
+    var configPath = options.configPath;
+    var logBaseDir = options.logBaseDir;
+    var cwd = options.cwd;
+    var noLogDirs = options.noLogDirs;
 
-    readYaml(absConfigPath, function(err, data) {
+    readYaml(configPath, function(err, data) {
       if (err) throw err;
 
       // Extract process descriptors from config
@@ -52,6 +56,10 @@ module.exports = {
       processes.forEach(function (process) {
         var logPath = process.logPath;
         var commands = process.commands;
+
+        if (noLogDirs) {
+          logPath = [logPath.join('-')];
+        }
 
         var absoluteLogPath = path.join.apply(path, [logBaseDir].concat(logPath)) + '.log';
         var absoluteLogDir = path.dirname(absoluteLogPath);
