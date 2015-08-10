@@ -55,7 +55,7 @@ module.exports = {
 
         var absoluteLogPath = path.join.apply(path, [logBaseDir].concat(logPath)) + '.log';
         var absoluteLogDir = path.dirname(absoluteLogPath);
-        var command = 'mkdir -p \'' + absoluteLogDir + '\'; (' + commands.join('; ') + ') > ' + absoluteLogPath;
+        var command = 'mkdir -p \'' + absoluteLogDir + '\'; (' + commands.join('; ') + ') &> ' + absoluteLogPath;
 
         console.log('Running:', command);
         var proc = childProcess.spawn('/bin/bash', ['-c', command], { cwd: cwd, stdio: ['ignore', 'ignore', 'ignore'] });
