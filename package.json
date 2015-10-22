@@ -1,8 +1,10 @@
 {
   "name": "sanstmuxinator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Run tmuxinator configs without tmuxinator or tmux.",
   "main": "index.js",
+  "repository": {"type": "git", "url": "https://github.com/electronifie/sanstmuxinator.git"},
+  "homepage": "https://github.com/electronifie/sanstmuxinator",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
