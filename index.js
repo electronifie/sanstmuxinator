@@ -22,7 +22,7 @@ process.on('SIGINT', exitHandler);
 process.on('uncaughtException', exitHandler);
 
 module.exports = {
-  run: function (options) {
+  run: function (options, cb) {
     var configPath = options.configPath;
     var logBaseDir = options.logBaseDir;
     var cwd = options.cwd;
@@ -53,7 +53,7 @@ module.exports = {
       });
 
       // Start process
-      processes.forEach(function (process) {
+      var processDetails = processes.map(function (process) {
         var logPath = process.logPath;
         var commands = process.commands;
 
@@ -67,9 +67,18 @@ module.exports = {
 
         console.log('Running:', command);
         var proc = childProcess.spawn('/bin/bash', ['-c', command], { cwd: cwd, stdio: ['ignore', 'ignore', 'ignore'] });
-        proc.on('close', function () { console.log('FINISHED: ', absoluteLogPath); })
+        proc.on('close', function () { console.log('FINISHED: ', absoluteLogPath); });
+
+        return {
+          name: logPath.join('_'),
+          logPath: logPath,
+          commands: commands,
+          commandWithLog: command,
+          process: proc
+        };
       });
 
+      if (cb) cb(processDetails);
     });
   }
 };

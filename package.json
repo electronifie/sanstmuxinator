@@ -1,6 +1,6 @@
 {
   "name": "sanstmuxinator",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Run tmuxinator configs without tmuxinator or tmux.",
   "main": "index.js",
   "repository": {"type": "git", "url": "https://github.com/electronifie/sanstmuxinator.git"},
